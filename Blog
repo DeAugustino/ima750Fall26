@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--This is where you can add meta info - what this page is about --->
+    <style>
+      body {
+          font-face: helvetica, sans-serif;
+          background-image: url(https://media.geeksforgeeks.org/wp-content/uploads/space_background_for_infinite_scroll_example-300x300.png);
+          color: #C0C0C0;
+      }
+      h1 {
+        color: #C0C0C0;
+        text-align: center;
+      }
+      h2 {
+        color: #C0C0C0;
+        text-align: center;
+      }
+    p {
+        color: #C0C0C0;
+        text-align: justified;
+      }
+    div {
+        text-align: justified;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- This is where you put your content --->
+      <h1>Emerging Media 1 Portfolio Site</h1>
+      <h2> Stephen DeAugustino</h2>
+      <p>*Heroes of Metro Magic*</p>
+      <div>     
+        <img src="https://blob.gifcities.org/gifcities/HPJ3RQMWV6L4LP4VG36NZFXRWCZRB5LB.gif" alt="image description"/>
+      </div>
+  </body>
+</html>
