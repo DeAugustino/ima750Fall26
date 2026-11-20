@@ -1,168 +1,170 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!--This is where you can add meta info - what this page is about --->
-    <style>
-      body {
-          font-face: helvetica, sans-serif;
-          background-image: url(https://media.geeksforgeeks.org/wp-content/uploads/space_background_for_infinite_scroll_example-300x300.png);
-          color: #C0C0C0;
-      }
-      h1 {
-        color: #C0C0C0;
-        text-align: center;
-      }
-      h2 {
-        color: #C0C0C0;
-        text-align: center;
-      }
-    p {
-        color: #C0C0C0;
-        text-align: center;
-      }
-    div {
-        text-align: center;
-      }
-    </style>
-    <style>
-    #myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 400px; /* Location of the box */
-  left: 20;
-  top: 50;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
-
-/* Caption of Modal Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
-
-/* Add Animation */
-.modal-content, #caption {  
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
-  to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-  from {transform:scale(0)} 
-  to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lightbox Slideshow</title>
+  <!-- Demos used:
+ https://www.w3schools.com/howto/howto_css_modals.asp
+ -->
+  <style>
+  #map {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: -10;
+    }
+  #map img {
+      width: 100%;
+      z-index: -10;
+    }
+  #location01{
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    width: 100px;
+    height: 100px;
+    z-index: 20;
+  }
+  #location02 {
+    cursor: pointer;
+    position: absolute;
+    left: 30%;
+    top: 170%;
+    width: 100px;
+    height: 100px;
+    z-index: 20;
+  }
+  .open-modal-btn {
+    z-index: 80;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+  }
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* https://www.w3schools.com/css/css3_mediaqueries.asp */
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  #location01{
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    width: 60px;
+    height: 60px;
+    z-index: 20;
+  }
+  #location02 {
+    cursor: pointer;
+    position: absolute;
+    left: 30%;
+    top: 65%;
+    width: 60px;
+    height: 60px;
+    z-index: 20;
   }
 }
-      </style>
-  </head>
-  <body>
-    <!-- This is where you put your content --->
-      <h1>Emerging Media 1 Portfolio Site | Incantation 2</h1>
-      <h2> Stephen DeAugustino</h2>
-      <p>*Heroes of Metro Magic*</p>
-        <img id="myImg" src="SkateboardDemo.gif" alt="Skateboard" style="width:50%; height:50%; max-width:300px">
+</style>
+</head>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
+<body>
+  <div id="map">
+    <img src="Incantation2Project.jpg" alt="A 1778 map of the island of New York" />
+  </div>
+  <!-- Trigger Buttons -->
+  <img id="location01" src="SkateboardDemo.gif" alt="skateboard" class="open-modal-btn" data-target="modal-1" />
+  <img id="location02" src="img/emoji.png" alt="love emoji" class="open-modal-btn" data-target="modal-2" />
+<button class="open-modal-btn" data-target="modal-3">Open Modal 3</button>
+
+<!-- Modals -->
+<div id="modal-1" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <iframe src="slideshow1.html" title="Free in NYC" style="width:960px; height:800px; border:none;"></iframe>
+    </iframe>
+  </div>
+</div>
+
+<div id="modal-2" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <iframe src="slideshow2.html" title="Free in NYC" style="width:960px; height:800px; border:none;"></iframe>
+    </iframe>
+  </div>
+</div>
+
+<div id="modal-3" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2>Modal 3 Content</h2>
+  </div>
 </div>
 
 <script>
-// Get the modal
-var modal = document.getElementById("myModal");
+  document.addEventListener("DOMContentLoaded", () => {
+  const openButtons = document.querySelectorAll(".open-modal-btn");
+  const closeButtons = document.querySelectorAll(".close-btn");
+  const modals = document.querySelectorAll(".modal");
 
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-}
+  // Open modal
+  openButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.dataset.target;
+      const targetModal = document.getElementById(modalId);
+      if (targetModal) {
+        targetModal.classList.add("active");
+      }
+    });
+  });
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+  // Close modal via close span
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const modal = btn.closest(".modal");
+      modal.classList.remove("active");
+    });
+  });
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
-}
-      <div>     
-        <img src="https://blob.gifcities.org/gifcities/HPJ3RQMWV6L4LP4VG36NZFXRWCZRB5LB.gif" alt="image description"/>
-      </div>
-    <p style="font-size: x-large;"> 
-      <u><b></b>Description</b></u>
-    </p>
-    <p style="background-color: black; text-align: justified;"> 
-     The world is dark and full of terrors! Use this map to find hereos, form your party, and start your quest to face these challenges. With your combined might and magic, you will overcome!
-    </p>
-           <p style="font-size: x-large;"> 
-      <u><b></b>Magical Map | Click to download!</b></u>
-    </p>
- <a href="Incantation2Project.pdf" download>
-  <img src="Incantation2Project.jpg" alt="Map" style="border: 5px outset silver;" width="1075" height="1369" loading="lazy">
-</a>
+  // Close modal when clicking outside content area
+  window.addEventListener("click", (e) => {
+    modals.categoryModal = e.target;
+    modals.forEach((modal) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+      }
+    });
+  });
+});
+
 </script>
-
-  </body>
+</body>
 </html>
